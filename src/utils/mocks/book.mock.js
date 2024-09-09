@@ -2,7 +2,11 @@ export const booksMock = [
     {
         id: 1,
         title: "Harry Potter",
-        description: "This is a book about a homeless wizard",
+        description: `Harry Potter is a fantasy novel series written by J.K. Rowling that follows the life and adventures of a young wizard, Harry Potter. The series begins with Harry discovering on his eleventh birthday that he is a wizard and has been accepted into Hogwarts School of Witchcraft and Wizardry. Over the course of seven books, Harry navigates the magical world, making lifelong friends like Hermione Granger and Ron Weasley, while battling dark forces.
+
+The central conflict revolves around Harry’s struggle against the dark wizard Lord Voldemort, who seeks to become immortal and rule both the magical and non-magical worlds. Harry, whose parents were killed by Voldemort when he was a baby, is prophesied to be the one who can defeat him. Throughout the series, Harry learns about friendship, loyalty, courage, and sacrifice as he uncovers secrets about his past and his connection to Voldemort.
+
+The series explores themes of good versus evil, the importance of love, and the power of choice. Filled with magical creatures, enchanted objects, and thrilling adventures, Harry Potter has become one of the most beloved and influential works of modern fantasy, captivating readers of all ages around the world.`,
         price: 100,
         image: "https://m.media-amazon.com/images/I/81q77Q39nEL._AC_UF894,1000_QL80_.jpg"
     },
