@@ -1,7 +1,8 @@
 const ROUTES = {
   ROOT: "/",
   BOOKPAGE: "/book/:bookId",
-  FAVORITES: "/favorites"
+  FAVORITES: "/favorites",
+  ABOUT: "/about"
 };
 
 export default ROUTES;

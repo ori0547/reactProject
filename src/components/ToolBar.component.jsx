@@ -7,7 +7,12 @@ export default function ToolBar({ book }) {
 
     const [liked, setLiked] = useState(false);
     const { user, setUser } = useUserStore();
-    /* useEffect() */
+    useEffect(() => {
+        if (user?.likedBooks) {
+            const isBookLiked = user.likedBooks.some((likedBook) => likedBook.id === book.id);
+            setLiked(isBookLiked);
+        }
+    }, [user, book]);
     const toggleLike = (event) => {
         event.stopPropagation()
         setLiked(!liked);
