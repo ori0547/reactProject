@@ -1,6 +1,13 @@
+import { Box } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router';
+import ToolBar from './ToolBar.component';
 
 export default function BookCard({ book }) {
+    const navigate = useNavigate()
+    const handleCardClick = () => {
+        navigate(`/book/${book.id}`);
+    }
     const descriptionStyle = {
         display: '-webkit-box',
         WebkitLineClamp: 2,
@@ -10,10 +17,11 @@ export default function BookCard({ book }) {
     };
 
     return (
-        <div className="flex flex-col items-center book-card">
+        <Box className="flex flex-col items-center book-card" onClick={handleCardClick}>
             <h2>{book.title}</h2>
             <p style={descriptionStyle}>{book.description}</p>
             <img src={book.image} alt={book.title} className="book-img" />
-        </div>
+            <ToolBar book={book} />
+        </Box>
     );
 }

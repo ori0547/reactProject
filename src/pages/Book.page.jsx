@@ -12,7 +12,7 @@ export default function BookPage() {
     return (
         <Box sx={{ mx: "20px", display: "flex", gap: "15px" }}>
             <Box sx={{ width: "400px" }}>
-                <img src={book.image} alt={book.title} style={{ width: "100%" }} />
+                <img src={book.image} alt={book.title} style={{ width: "100%", maxHeight: "80%" }} />
             </Box>
             <Box sx={{ textAlign: "center", width: "50%" }}>
                 <h1>{book.title}</h1>

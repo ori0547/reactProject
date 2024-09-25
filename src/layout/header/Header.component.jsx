@@ -1,48 +1,34 @@
-// import React from 'react';
-
-// export default function Header() {
-//     return (
-//         <div>
-//             <header className="flex justify-between items-center bg-orange-400 text-white p-4 fixed w-full z-50">
-//                 <div className="flex items-center space-x-4">
-//                     <img
-//                         src="https://www.svgrepo.com/show/765/library.svg"
-//                         alt="library img"
-//                         className="w-12 h-12"
-//                     />
-//                     <a href="#" className="text-xl font-bold">ChapterCloud</a>
-//                 </div>
-//                 <nav>
-//                     <ul className="flex space-x-8">
-//                         <li>
-//                             <a href="#" className="hover:underline text-lg">HOME</a>
-//                         </li>
-//                         <li>
-//                             <a href="#" className="hover:underline text-lg">ABOUT</a>
-//                         </li>
-//                         <li>
-//                             <a href="#" className="hover:underline text-lg">CONTACT</a>
-//                         </li>
-//                     </ul>
-//                 </nav>
-//             </header>
-//         </div>
-//     );
-// }
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useUserStore } from '../../store/user.store';
+import { Link } from 'react-router-dom';
+import ROUTES from '../../routes/routesModel';
+import { Box } from '@mui/material';
 
 export default function Header() {
+    const { user, setUser } = useUserStore();
+    useEffect(() => {
+        if (!user) {
+            setUser({
+                id: 2,
+                name: "mark",
+                isAdmin: true,
+                likedBooks: []
+            })
+        }
+    }, [])
     return (
         <div>
             <header className='header'>
-                <div className='logo'>
+                <Box className='logo'>
                     <img src="https://www.svgrepo.com/show/765/library.svg" alt="library img" className='imgLogo' />
-                    <a href="#" className='a-logo'>ChapterCloud</a></div>
+                    <Link to={ROUTES.ROOT} className='a-logo'>ChapterCloud</Link></Box>
                 <nav className='nav'>
                     <ul className='ul'>
-                        <li className='li'><a href="#" className='a-li'>HOME</a></li>
-                        <li className='li'><a href="#" className='a-li'>ABOUTE</a></li>
-                        <li className='li'><a href="#" className='a-li'>CONTACT</a></li>
+                        <li className='li'><Link to={ROUTES.ROOT} className='a-li'>HOME</Link></li>
+                        {user && <li className='li'><Link to={ROUTES.FAVORITES} className='a-li'>FAVORITES</Link></li>}
+                        <li className='li'><Link to={ROUTES.ROOT} className='a-li'>ABOUT</Link></li>
+                        <li className='li'><Link to={ROUTES.ROOT} className='a-li'>CONTACT</Link></li>
+
                     </ul>
                 </nav>
             </header>
