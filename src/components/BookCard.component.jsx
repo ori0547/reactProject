@@ -19,7 +19,7 @@ export default function BookCard({ book }) {
     return (
         <Box className="flex flex-col items-center book-card" onClick={handleCardClick}>
             <h2>{book.title}</h2>
-            <p style={descriptionStyle}>{book.description}</p>
+            <p style={descriptionStyle}>{book.summary}</p>
             <img src={book.image} alt={book.title} className="book-img" />
             <ToolBar book={book} />
         </Box>

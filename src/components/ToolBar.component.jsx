@@ -8,8 +8,8 @@ export default function ToolBar({ book }) {
     const [liked, setLiked] = useState(false);
     const { user, setUser } = useUserStore();
     useEffect(() => {
-        if (user?.likedBooks) {
-            const isBookLiked = user.likedBooks.some((likedBook) => likedBook.id === book.id);
+        if (user) {
+            const isBookLiked = user?.likedBooks?.some(likedBook => likedBook.id === book.id);
             setLiked(isBookLiked);
         }
     }, [user, book]);
@@ -36,5 +36,6 @@ export default function ToolBar({ book }) {
                 <FavoriteBorder style={{ color: liked ? "red" : "grey" }} />
             </IconButton>
         </Box>
+        
     )
 }

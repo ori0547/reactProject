@@ -4,7 +4,9 @@ import ROUTES from "./routesModel";
 import HomePage from "../pages/Home.page";
 import BookPage from "../pages/Book.page";
 import FavoritesPage from "../pages/Favorites.page";
-import AboutPage from "../pages/About.page";
+import Aboutpage from "../pages/About.page";
+import Contactpage from "../pages/Contact.page";
+import LoginSignupPage from "../pages/LoginSignup.Page";
 
 
 export default function Router() {
@@ -13,8 +15,9 @@ export default function Router() {
       <Route path={ROUTES.ROOT} element={<HomePage />} />
       <Route path={ROUTES.BOOKPAGE} element={<BookPage />} />
       <Route path={ROUTES.FAVORITES} element={<FavoritesPage />} />
-      <Route path={ROUTES.ABOUT} element={<AboutPage />} />
-      {/* <Route path="*" element={<ErrorPage />} /> */}
+      <Route path={ROUTES.ABOUT} element={<Aboutpage />} />
+      <Route path={ROUTES.CONTACT} element={<Contactpage />} />
+      <Route path={ROUTES.LOGIN_SIGNUP} element={<LoginSignupPage />} />
     </Routes>
   );
 }
