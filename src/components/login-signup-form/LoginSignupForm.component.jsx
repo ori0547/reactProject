@@ -20,7 +20,6 @@ const signupValidators = {};
 
 generalFields.forEach(field => generalValidators[field.name] = field.validation);
 signupFields.forEach(field => signupValidators[field.name] = field.validation);
-console.log(signupValidators);
 
 const LoginSignupForm = () => {
   const [isValid, setIsValid] = useState(false);
@@ -43,12 +42,13 @@ const LoginSignupForm = () => {
       setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMessage }));
     }
   };
+  const onToggleMode = () => {
+    setIsSignup(!isSignup)
+    setFormData(userService.getEmptyUser())
+  }
 
   useEffect(() => {
     const data = isSignup ? formData : { email: formData.email, password: formData.password };
-    console.log(validators);
-    console.log(data);
-
 
 
     setIsValid(!Joi.object(validators).validate(data).error);
@@ -114,7 +114,7 @@ const LoginSignupForm = () => {
             {isSignup ? 'Sign Up' : 'Log In'}
           </Button>
           <Button
-            onClick={() => setIsSignup(!isSignup)}
+            onClick={onToggleMode}
             fullWidth
             variant="text"
             style={{ marginTop: '10px' }}
