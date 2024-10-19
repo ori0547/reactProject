@@ -13,10 +13,12 @@ import { userService } from '../../services/user.services';
 import constants from './LoginSignupForm.constants';
 import Joi from 'joi';
 import { useUserStore } from '../../store/user.store';
+import { useNavigate } from 'react-router';
 
 const { generalFields, signupFields } = constants
 const generalValidators = {};
 const signupValidators = {};
+
 
 generalFields.forEach(field => generalValidators[field.name] = field.validation);
 signupFields.forEach(field => signupValidators[field.name] = field.validation);
@@ -25,6 +27,7 @@ const LoginSignupForm = () => {
   const [isValid, setIsValid] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState(userService.getEmptyUser());
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
 
   const { setUser } = useUserStore();
@@ -60,17 +63,23 @@ const LoginSignupForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const userData = userService.normalizeUser(formData);
-    if (isSignup) {
-      await userService.signup(userData);
-    } else {
-      const loginData = { email: userData.email, password: userData.password };
-      await userService.login(loginData);
+    try {
+      e.preventDefault();
+      const userData = userService.normalizeUser(formData);
+      if (isSignup) {
+        await userService.signup(userData);
+      } else {
+        const loginData = { email: userData.email, password: userData.password };
+        await userService.login(loginData);
+      }
+
+      setUser(userService.getLoggedInUser());
+      navigate(`/`)
+
+    } catch (err) {
+      console.error(err)
     }
 
-
-    setUser(userService.getLoggedInUser());
   };
 
   return (
