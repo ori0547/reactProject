@@ -19,7 +19,7 @@ export default function ToolBar({ book }) {
         const bookInUserLikedIndex = user?.likedBooks?.findIndex((likedBook) => {
             return likedBook.id === book.id
         });
-        const newUser = { ...user }
+        const newUser = { ...user, likedBooks: user?.likedBooks || [] };
         if (bookInUserLikedIndex > -1) {
             newUser?.likedBooks.splice(bookInUserLikedIndex, 1);
         } else {
@@ -36,6 +36,6 @@ export default function ToolBar({ book }) {
                 <FavoriteBorder style={{ color: liked ? "red" : "grey" }} />
             </IconButton>
         </Box>
-        
+
     )
 }
