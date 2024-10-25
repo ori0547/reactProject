@@ -6,7 +6,7 @@ import ToolBar from './ToolBar.component';
 export default function BookCard({ book }) {
     const navigate = useNavigate()
     const handleCardClick = () => {
-        navigate(`/book/${book.id}`);
+        navigate(`/book/${book._id}`);
     }
     const descriptionStyle = {
         display: '-webkit-box',
