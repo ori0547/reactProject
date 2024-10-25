@@ -15,8 +15,6 @@ export const httpService = {
         return ajax(endpoint, 'GET', data)
     },
     post(endpoint, data) {
-        console.log(endpoint);
-        console.log(data);
         return ajax(endpoint, 'POST', data)
 
     },
@@ -31,8 +29,6 @@ export const httpService = {
 async function ajax(endpoint, method = 'GET', data = null) {
     try {
         const token = userService.getToken();
-
-        console.log(`${BASE_URL}${endpoint}`);
 
         const res = await axios.request({
             url: `${BASE_URL}${endpoint}`,

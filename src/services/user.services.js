@@ -79,6 +79,7 @@ async function logout() {
 }
 
 function saveToken(token) {
+
     // user = { _id: user._id, fullname: user.fullname, likedBooks: user.likedBooks, isAdmin: user.isAdmin }
     sessionStorage.setItem(STORAGE_KEY_USER_TOKEN, JSON.stringify(token))
     return token
