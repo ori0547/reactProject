@@ -21,6 +21,9 @@ export const httpService = {
     put(endpoint, data) {
         return ajax(endpoint, 'PUT', data)
     },
+    patch(endpoint, data) {
+        return ajax(endpoint, 'PATCH', data)
+    },
     delete(endpoint, data) {
         return ajax(endpoint, 'DELETE', data)
     }

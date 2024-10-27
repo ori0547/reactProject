@@ -17,15 +17,16 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     if (!user) {
-      const loggedInUser = userService.getLoggedInUser()
-      setUser(loggedInUser)
-
+      fetchLoggedInUser()
     }
     if (!books) {
       fetchBooks()
     }
   }, [])
-
+  const fetchLoggedInUser = async () => {
+    const loggedInUser = await userService.getLoggedInUser()
+    setUser(loggedInUser)
+  }
   const fetchBooks = async () => {
     setBooks(await bookService.getBooks())
   }

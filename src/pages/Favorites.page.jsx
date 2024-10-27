@@ -6,7 +6,7 @@ export default function FavoritesPage() {
 
     return (
         <div>
-            <BookList books={user?.likedBooks} />
+            <BookList books={user?.favorites} />
         </div>
     )
 }

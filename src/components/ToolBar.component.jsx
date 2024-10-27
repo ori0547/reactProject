@@ -1,31 +1,28 @@
-import { Box, IconButton } from '@mui/material'
+import { Box, IconButton, useRadioGroup } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useUserStore } from '../store/user.store'
 import { FavoriteBorder } from '@mui/icons-material';
+import { userService } from '../services/user.services';
+const { toggleFavorites } = userService
 
 export default function ToolBar({ book }) {
 
     const [liked, setLiked] = useState(false);
     const { user, setUser } = useUserStore();
+
     useEffect(() => {
         if (user) {
-            const isBookLiked = user?.likedBooks?.some(likedBook => likedBook.id === book.id);
+            const isBookLiked = user?.favorites?.some(favorite => favorite === book._id);
             setLiked(isBookLiked);
         }
     }, [user, book]);
-    const toggleLike = (event) => {
+
+
+    const toggleLike = async (event) => {
         event.stopPropagation()
         setLiked(!liked);
-        const bookInUserLikedIndex = user?.likedBooks?.findIndex((likedBook) => {
-            return likedBook.id === book.id
-        });
-        const newUser = { ...user, likedBooks: user?.likedBooks || [] };
-        if (bookInUserLikedIndex > -1) {
-            newUser?.likedBooks.splice(bookInUserLikedIndex, 1);
-        } else {
-            newUser?.likedBooks.push(book);
-        }
-        setUser(newUser);
+        const newFavorites = await toggleFavorites(book._id)
+        setUser({ ...user, favorites: newFavorites })
     };
 
 

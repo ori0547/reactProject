@@ -17,7 +17,16 @@ export const userService = {
     remove,
     save,
     normalizeUser,
-    getEmptyUser
+    getEmptyUser,
+    toggleFavorites
+}
+
+async function toggleFavorites(bookId) {
+    try {
+        return await httpService.patch(USER_BASE_URL + "favorites", { bookId })
+    } catch (err) {
+        throw new Error(err.message || 'An err occurred during toggle favorites')
+    }
 }
 
 async function getUsers() {
@@ -93,10 +102,13 @@ function getToken() {
     }
 }
 
-function getLoggedInUser() {
+async function getLoggedInUser() {
     const token = getToken();
     if (token) {
-        return jwtDecode(token);
+        const miniUser = jwtDecode(token);
+        const { _id } = miniUser
+        return await getById(_id)
+
     } else {
         return null;
     }

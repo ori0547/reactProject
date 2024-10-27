@@ -73,7 +73,7 @@ const LoginSignupForm = () => {
         await userService.login(loginData);
       }
 
-      setUser(userService.getLoggedInUser());
+      setUser(await userService.getLoggedInUser());
       navigate(`/`)
 
     } catch (err) {
