@@ -8,7 +8,9 @@ export const bookService = {
     getBooks,
     getById,
     getBookList,
-
+    getEmptyBook,
+    save,
+    editBook,
 }
 
 async function getBooks() {
@@ -36,4 +38,34 @@ async function getBookList(bookIds) {
     } catch (err) {
         throw new Error(err.message || 'An err occurred during getting book')
     }
+}
+
+async function save(book) {
+    try {
+        if (book._id) {
+            const updatedBook = await httpService.put(BOOK_BASE_URL + book._id, book)
+            return updatedBook
+        } else {
+            return await httpService.post(BOOK_BASE_URL, book)
+        }
+    } catch (err) {
+        throw new Error(err.message || 'An err occurred during saving book')
+    }
+}
+
+function editBook(book) {
+    const res = {};
+    Object.keys(getEmptyBook()).forEach((key) => res[key] = book[key]);
+    return res;
+}
+
+function getEmptyBook() {
+    return {
+        title: "",
+        summary: "",
+        description: "",
+        price: "",
+        image: "",
+        // author: "",
+    };
 }

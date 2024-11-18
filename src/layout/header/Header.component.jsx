@@ -26,7 +26,7 @@ export default function Header() {
                         <li className='li'><Link to={ROUTES.ROOT} className='a-li'>HOME</Link></li>
                         {user && <li className='li'><Link to={ROUTES.FAVORITES} className='a-li'>FAVORITES</Link></li>}
                         <li className='li'><Link to={ROUTES.ABOUT} className='a-li'>ABOUT</Link></li>
-                        <li className='li'><Link to={ROUTES.CONTACT} className='a-li'>CONTACT</Link></li>
+                        {(user?.isBusiness || user?.isAdmin) && <li className='li'><Link to={ROUTES.ADD_BOOK} className='a-li'>ADD BOOK</Link></li>}
                         {user ? <li className='li'><p className='a-li' onClick={onLogOut}>LOGOUT</p></li> : <li className='li'><Link to={ROUTES.LOGIN_SIGNUP} className='a-li'>LOGIN</Link></li>}
                     </ul>
                 </nav>

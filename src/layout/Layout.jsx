@@ -14,6 +14,14 @@ export default function Layout({ children }) {
   const { user, setUser } = useUserStore();
   const { books, setBooks } = useBookStore();
 
+  const fetchLoggedInUser = async () => {
+    const loggedInUser = await userService.getLoggedInUser()
+    setUser(loggedInUser)
+  }
+
+  const fetchBooks = async () => {
+    setBooks(await bookService.getBooks())
+  }
 
   useEffect(() => {
     if (!user) {
@@ -23,13 +31,7 @@ export default function Layout({ children }) {
       fetchBooks()
     }
   }, [])
-  const fetchLoggedInUser = async () => {
-    const loggedInUser = await userService.getLoggedInUser()
-    setUser(loggedInUser)
-  }
-  const fetchBooks = async () => {
-    setBooks(await bookService.getBooks())
-  }
+
   return (
     <>
       <Header />

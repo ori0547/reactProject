@@ -54,7 +54,7 @@ async function save(user) {
             // saveLocalUser(updatedUser)
             return updatedUser
         } else {
-            return await httpService.post(STORAGE_KEY, user)
+            return await httpService.post(USER_BASE_URL, user)
         }
     } catch (err) {
         throw new Error(err.message || 'An err occurred during saving user')
