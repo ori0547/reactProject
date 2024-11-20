@@ -10,7 +10,7 @@ export default function BookCard({ book }) {
     }
     const descriptionStyle = {
         display: '-webkit-box',
-        WebkitLineClamp: 2,
+        WebkitLineClamp: 1,
         WebkitBoxOrient: 'vertical',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
