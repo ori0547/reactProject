@@ -1,18 +1,23 @@
 import React, { useEffect } from 'react'
 import { useUserStore } from '../../store/user.store';
-import { json, Link } from 'react-router-dom';
+import { json, Link, useNavigate } from 'react-router-dom';
 import ROUTES from '../../routes/routesModel';
 import { Box } from '@mui/material';
+import { userService } from '../../services/user.services';
 
 
 
 
 
 export default function Header() {
+    const navigate = useNavigate()
     const { user, setUser } = useUserStore();
     const onLogOut = () => {
         if (user) {
             setUser(undefined)
+            navigate(`/`)
+            userService.logout()
+
         }
     }
     return (

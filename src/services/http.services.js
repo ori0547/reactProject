@@ -3,7 +3,7 @@ import { userService } from './user.services';
 
 const BASE_URL = process.env.NODE_ENV === 'production'
     ? '/'
-    : 'http://localhost:8181/'
+    : 'http://localhost:8080/'
 
 
 // var axios = Axios.create({
