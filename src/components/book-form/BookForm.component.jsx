@@ -35,7 +35,7 @@ const BookForm = ({ bookId, book }) => {
       setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMessage }));
     }
   };
-  
+
   const { user, setUser } = useUserStore();
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;

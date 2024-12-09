@@ -20,7 +20,7 @@ export default function BookPage() {
                     <Typography variant="h4" sx={{ fontWeight: "bold", mb: "20px" }}>{book.title}</Typography>
 
 
-                    <Typography variant="body1" sx={{ mt: "20px", whiteSpace: "pre-line", width: "400px" }}>
+                    <Typography variant="body1" sx={{ mt: "20px", whiteSpace: "pre-line", marginBottom: "30px" }}>
                         {book.description}
                     </Typography>
                 </Box>
