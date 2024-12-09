@@ -24,8 +24,8 @@ export default function ToolBar({ book }) {
         e.stopPropagation();
 
         if (confirm('Are you sure you want to delete this book?')) {
-            await bookService.deleteBook(book); // delete in backend (from database)
-            setBooks(books.filter(({ _id }) => _id != book._id)); // delete in frontend (from state)
+            await bookService.deleteBook(book);
+            setBooks(books.filter(({ _id }) => _id != book._id));
             setUser({ ...user, favorites: user.favorites.filter((id) => id != book._id) });
         }
     };
@@ -39,11 +39,11 @@ export default function ToolBar({ book }) {
     if (!user) return;
 
     return (
-        <Box>
+        <Box sx={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
             <IconButton onClick={toggleLike}>
                 <FavoriteBorder style={{ color: liked ? "red" : "grey" }} />
             </IconButton>
-            {(user.isAdmin || isOwner) &&
+            {(user.isAdmin || isOwner) && (
                 <>
                     <IconButton onClick={onEdit}>
                         <Edit />
@@ -52,7 +52,7 @@ export default function ToolBar({ book }) {
                         <Delete />
                     </IconButton>
                 </>
-            }
+            )}
         </Box>
     );
 }

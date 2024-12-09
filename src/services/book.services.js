@@ -75,6 +75,5 @@ function getEmptyBook() {
         description: "",
         price: "",
         image: "",
-        // author: "",
     };
 }

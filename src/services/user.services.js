@@ -47,12 +47,10 @@ async function getById(userId) {
     }
 }
 
-// To do
 async function save(user) {
     try {
         if (user._id) {
             const updatedUser = await httpService.put(USER_BASE_URL + user._id, { ...user, _id: undefined })
-            // saveLocalUser(updatedUser)
             return updatedUser
         } else {
             return await httpService.post(USER_BASE_URL, user)
@@ -89,8 +87,6 @@ async function logout() {
 }
 
 function saveToken(token) {
-
-    // user = { _id: user._id, fullname: user.fullname, likedBooks: user.likedBooks, isAdmin: user.isAdmin }
     sessionStorage.setItem(STORAGE_KEY_USER_TOKEN, JSON.stringify(token))
     return token
 }
@@ -125,10 +121,6 @@ function normalizeUser(input) {
         phone: input.phone,
         email: input.email,
         password: input.password,
-        // image: {
-        //     url: input.url,
-        //     alt: input.alt,
-        // },
         address: {
             state: input.state,
             country: input.country,
@@ -159,8 +151,6 @@ function getEmptyUser() {
         phone: "",
         email: "",
         password: "",
-        // url: "",
-        // alt: "",
         state: "",
         country: "",
         city: "",

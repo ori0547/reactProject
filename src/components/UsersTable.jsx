@@ -154,11 +154,6 @@ function UsersTableToolbar({ numSelected, handleDeleteSelected }) {
         </Tooltip>
       ) : (
         null
-        // <Tooltip title="Filter list">
-        //   <IconButton>
-        //     <FilterListIcon />
-        //   </IconButton>
-        // </Tooltip>
       )}
     </Toolbar>
   );
@@ -199,7 +194,7 @@ export default function UsersTable({ rows }) {
     if (confirm('Are you sure you want to remove these users?')) {
       const promises = selected.map(userService.remove);
       await Promise.all(promises);
-      
+
       setUsers(users.filter((user) => !selected.includes(user._id)));
 
       if (selected.includes(user._id)) {

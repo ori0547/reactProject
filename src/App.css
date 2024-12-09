@@ -128,10 +128,15 @@ body {
   margin-right: 20px;
 }
 
+.hamburger {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .header {
-    flex-direction: column;
+    flex-direction: row;
     padding: 0;
+    height: 100px;
   }
 
   .book-list {
@@ -144,9 +149,52 @@ body {
     padding-right: 0;
   }
 
-  .book-card img {}
-}
+  .hover\:underline:hover {
+    text-decoration-line: underline;
+  }
 
-.hover\:underline:hover {
-  text-decoration-line: underline;
+  .hamburger {
+    display: block;
+    margin-right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  .nav {
+    display: none;
+    width: 100%;
+    background-color: #ef9978;
+    position: absolute;
+    top: 100px;
+    right: 0;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .nav.open {
+    display: block;
+  }
+
+  .ul {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+
+  .li {
+    padding: 15px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .li:hover {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+  }
+
+  .li a {
+    font-size: 1.2em;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+  }
 }
