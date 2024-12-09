@@ -6,6 +6,8 @@ const ROUTES = {
   LOGIN_SIGNUP: "/loginsignup",
   EDIT_BOOK: "/edit-book/:bookId",
   ADD_BOOK: "/add-book",
+  ADMIN: "/admin",
+  USER: "/admin/:userId"
 };
 
 export default ROUTES;

@@ -10,7 +10,6 @@ export default function FavoritesPage() {
     const [books, setBooks] = useState()
 
     async function fetchBookList() {
-
         if (!user || !user.favorites) return
         const bookList = await getBookList(user?.favorites)
         setBooks(bookList)

@@ -18,7 +18,8 @@ export const userService = {
     save,
     normalizeUser,
     getEmptyUser,
-    toggleFavorites
+    toggleFavorites,
+    getEditableUser
 }
 
 async function toggleFavorites(bookId) {
@@ -50,7 +51,7 @@ async function getById(userId) {
 async function save(user) {
     try {
         if (user._id) {
-            const updatedUser = await httpService.put(USER_BASE_URL + user._id, user)
+            const updatedUser = await httpService.put(USER_BASE_URL + user._id, { ...user, _id: undefined })
             // saveLocalUser(updatedUser)
             return updatedUser
         } else {
@@ -138,6 +139,16 @@ function normalizeUser(input) {
         },
         isBusiness: input.isBusiness,
     };
+}
+
+function getEditableUser(user) {
+    return {
+        ...user.name,
+        ...user.address,
+        phone: user.phone,
+        email: user.email,
+        isBusiness: user.isBusiness,
+    }
 }
 
 function getEmptyUser() {

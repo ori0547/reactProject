@@ -14,7 +14,6 @@ import { fields } from './BookForm.constants';
 import Joi from 'joi';
 import { useNavigate } from 'react-router';
 import { useBookStore } from '../../store/book.store';
-import { userService } from '../../services/user.services';
 import { useUserStore } from '../../store/user.store';
 const validators = {};
 const defaultImageUrl = "https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png";
@@ -36,11 +35,7 @@ const BookForm = ({ bookId, book }) => {
       setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMessage }));
     }
   };
-  useEffect(() => {
-    if (!user) {
-      navigate(`/`)
-    }
-  }, [])
+  
   const { user, setUser } = useUserStore();
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;

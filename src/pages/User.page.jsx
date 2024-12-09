@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Button,
   TextField,
@@ -9,30 +9,27 @@ import {
   Checkbox,
   Grid2,
 } from '@mui/material';
-import { userService } from '../../services/user.services';
-import constants from './LoginSignupForm.constants';
+import { userService } from '../services/user.services';
+import constants from '../components/login-signup-form/LoginSignupForm.constants'
 import Joi from 'joi';
-import { useUserStore } from '../../store/user.store';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { useUserStore } from '../store/user.store';
 
-const { generalFields, signupFields } = constants
-const generalValidators = {};
-const signupValidators = {};
+const fields = constants.signupFields.filter((field) => field.name != 'password');
+const validators = {};
 
-generalFields.forEach(field => generalValidators[field.name] = field.validation);
-signupFields.forEach(field => signupValidators[field.name] = field.validation);
+delete fields.password;
 
-const LoginSignupForm = () => {
+fields.forEach((field) => validators[field.name] = field.validation);
+
+const UserPage = () => {
+  const { userId } = useParams();
+  const [editUser, setEditUser] = useState();
   const [isValid, setIsValid] = useState(false);
-  const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState(userService.getEmptyUser());
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
-
-  const { setUser } = useUserStore();
-
-  const fields = isSignup ? signupFields : generalFields
-  const validators = isSignup ? signupValidators : generalValidators
+  const { user, setUser, users, setUsers } = useUserStore();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,15 +42,17 @@ const LoginSignupForm = () => {
     }
   };
 
-  const onToggleMode = () => {
-    setIsSignup(!isSignup)
-    setFormData(userService.getEmptyUser())
-  }
+  useEffect(() => {
+    userService.getById(userId).then((user) => {
+      const formData = userService.getEditableUser(user);
+      setFormData(formData);
+      setEditUser(user);
+    });
+  }, [userId]);
 
   useEffect(() => {
-    const data = isSignup ? formData : { email: formData.email, password: formData.password };
-    setIsValid(!Joi.object(validators).validate(data).error);
-  }, [isSignup, formData]);
+    setIsValid(!Joi.object(validators).validate(formData).error);
+  }, [formData]);
 
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
@@ -64,25 +63,25 @@ const LoginSignupForm = () => {
     try {
       e.preventDefault();
       const userData = userService.normalizeUser(formData);
-      if (isSignup) {
-        await userService.signup(userData);
-      } else {
-        const loginData = { email: userData.email, password: userData.password };
-        await userService.login(loginData);
+      delete userData.password;
+      const editedUser = await userService.save({ _id: userId, ...userData });
+
+      setUsers(users?.map((user) => user._id == userId ? editedUser : user));
+
+      if (user._id == userId) {
+        setUser(editedUser);
       }
 
-      setUser(await userService.getLoggedInUser());
-      navigate(`/`)
-
+      navigate('/admin');
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   };
 
   return (
     <Container maxWidth="xs">
       <Paper elevation={3} style={{ padding: '20px' }}>
-        <Typography variant="h5">{isSignup ? 'Sign Up' : 'Log In'}</Typography>
+        <Typography variant="h5">Edit User</Typography>
         <form onSubmit={handleSubmit}>
           <Grid2 container mx={-1}>
             {fields.map(field => {
@@ -93,7 +92,7 @@ const LoginSignupForm = () => {
                     <FormControlLabel
                       name={name}
                       onChange={handleCheckboxChange}
-                      control={<Checkbox value={formData[name]} color="primary" />}
+                      control={<Checkbox checked={formData[name]} color="primary" />}
                       label={displayName}
                     />
                   </Grid2>
@@ -117,15 +116,7 @@ const LoginSignupForm = () => {
             })}
           </Grid2>
           <Button type="submit" fullWidth variant="contained" color="primary" disabled={!isValid}>
-            {isSignup ? 'Sign Up' : 'Log In'}
-          </Button>
-          <Button
-            onClick={onToggleMode}
-            fullWidth
-            variant="text"
-            style={{ marginTop: '10px' }}
-          >
-            {isSignup ? 'Already have an account? Log In' : "Don't have an account? Sign Up"}
+            Save
           </Button>
         </form>
       </Paper>
@@ -133,4 +124,4 @@ const LoginSignupForm = () => {
   );
 };
 
-export default LoginSignupForm;
+export default UserPage;

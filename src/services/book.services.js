@@ -11,7 +11,8 @@ export const bookService = {
     getEmptyBook,
     save,
     editBook,
-}
+    deleteBook,
+};
 
 async function getBooks() {
     try {
@@ -50,6 +51,14 @@ async function save(book) {
         }
     } catch (err) {
         throw new Error(err.message || 'An err occurred during saving book')
+    }
+}
+
+async function deleteBook(book) {
+    try {
+        return await httpService.delete(BOOK_BASE_URL + book._id);
+    } catch (err) {
+        throw new Error(err.message || 'An err occurred during deleting book');
     }
 }
 

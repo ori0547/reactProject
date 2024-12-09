@@ -14,6 +14,8 @@ const EditBookPage = () => {
         const editableBook = bookService.editBook(book);
         setBook(editableBook);
       });
+    } else {
+      setBook(bookService.getEmptyBook());
     }
   }, [bookId]);
 
