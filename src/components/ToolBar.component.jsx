@@ -1,7 +1,7 @@
 import { Box, IconButton, } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useUserStore } from '../store/user.store'
-import { Delete, Edit, FavoriteBorder } from '@mui/icons-material';
+import { Delete, Edit, FavoriteBorder, Phone } from '@mui/icons-material';
 import { userService } from '../services/user.services';
 import { useNavigate } from 'react-router';
 import { bookService } from '../services/book.services';
@@ -18,6 +18,10 @@ export default function ToolBar({ book }) {
     const onEdit = (e) => {
         e.stopPropagation();
         navigate(`/edit-book/${book._id}`);
+    };
+    const onCall = (e, phoneNumber) => {
+        e.stopPropagation();
+        window.location.href = `tel:${phoneNumber}`;
     };
 
     const onDelete = async (e) => {
@@ -42,6 +46,9 @@ export default function ToolBar({ book }) {
         <Box sx={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
             <IconButton onClick={toggleLike}>
                 <FavoriteBorder style={{ color: liked ? "red" : "grey" }} />
+            </IconButton>
+            <IconButton onClick={(e) => onCall(e, user.phone)}>
+                <Phone />
             </IconButton>
             {(user.isAdmin || isOwner) && (
                 <>

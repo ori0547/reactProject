@@ -67,6 +67,9 @@ export default function BookPage() {
                     >
                         {book.description}
                     </Typography>
+                    <Typography sx={{ fontSize: "1.4rem" }}>
+                        {`${book.price}$`}
+                    </Typography>
                 </Box>
             </Box>
         </Container>
