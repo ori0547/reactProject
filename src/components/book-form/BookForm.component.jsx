@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Button,
   TextField,
@@ -8,16 +8,17 @@ import {
   FormControlLabel,
   Checkbox,
   Grid2,
-} from '@mui/material';
-import { bookService } from '../../services/book.services';
-import { fields } from './BookForm.constants';
-import Joi from 'joi';
-import { useNavigate } from 'react-router';
-import { useBookStore } from '../../store/book.store';
-import { useUserStore } from '../../store/user.store';
+} from "@mui/material";
+import { bookService } from "../../services/book.services";
+import { fields } from "./BookForm.constants";
+import Joi from "joi";
+import { useNavigate } from "react-router";
+import { useBookStore } from "../../store/book.store";
+import { useUserStore } from "../../store/user.store";
 const validators = {};
-const defaultImageUrl = "https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png";
-fields.forEach(field => (validators[field.name] = field.validation));
+const defaultImageUrl =
+  "https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png";
+fields.forEach((field) => (validators[field.name] = field.validation));
 const BookForm = ({ bookId, book }) => {
   const [isValid, setIsValid] = useState(false);
   const [formData, setFormData] = useState(bookService.getEmptyBook());
@@ -27,6 +28,7 @@ const BookForm = ({ bookId, book }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormData((prevData) => ({ ...prevData, [name]: value }));
     if (validators[name]) {
       const fieldValidator = Joi.object({ [name]: validators[name] });
@@ -52,11 +54,20 @@ const BookForm = ({ bookId, book }) => {
       };
 
       const isEditing = Boolean(bookId);
-      const id = await bookService.save({ _id: bookId, ...finalFormData, userId: user._id });
+      const id = await bookService.save({
+        _id: bookId,
+        ...finalFormData,
+        userId: user._id,
+      });
+
       const newBook = await bookService.getById(id);
 
       if (isEditing) {
-        setBooks(books.map((oldBook) => (oldBook._id === newBook._id ? newBook : oldBook)));
+        setBooks(
+          books.map((oldBook) =>
+            oldBook._id === newBook._id ? newBook : oldBook
+          )
+        );
       } else {
         setBooks([...books, newBook]);
       }
@@ -79,22 +90,26 @@ const BookForm = ({ bookId, book }) => {
 
   return (
     <Container maxWidth="xs">
-      <Paper elevation={3} style={{ padding: '20px' }}>
-        <Typography variant="h5">{bookId ? `Edit ${formData.title}` : 'Add Book'}</Typography>
+      <Paper elevation={3} style={{ padding: "20px" }}>
+        <Typography variant="h5">
+          {bookId ? `Edit ${formData.title}` : "Add Book"}
+        </Typography>
         <form onSubmit={handleSubmit}>
           <Grid2 container mx={-1}>
             {fields.map((field) => {
               const { displayName, name, type, required } = field;
-              return type === 'checkbox' ? (
+              return type === "checkbox" ? (
                 <Grid2 key={name} size={12} p={1}>
                   <FormControlLabel
                     name={name}
                     onChange={handleCheckboxChange}
-                    control={<Checkbox value={formData[name]} color="primary" />}
+                    control={
+                      <Checkbox value={formData[name]} color="primary" />
+                    }
                     label={displayName}
                   />
                 </Grid2>
-              ) : type === 'textarea' ? (
+              ) : type === "textarea" ? (
                 <Grid2 key={name} size={12} p={1}>
                   <TextField
                     name={name}
@@ -129,8 +144,14 @@ const BookForm = ({ bookId, book }) => {
               );
             })}
           </Grid2>
-          <Button type="submit" fullWidth variant="contained" color="primary" disabled={!isValid}>
-            {bookId ? 'Edit' : 'Create'}
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={!isValid}
+          >
+            {bookId ? "Edit" : "Create"}
           </Button>
         </form>
       </Paper>

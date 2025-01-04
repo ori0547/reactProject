@@ -9,8 +9,9 @@
 }
 
 body {
-  background-color: #abdaf2;
-  font-family: 'Times New Roman', serif;
+  direction: ltr;
+  background-color: #7e99a3;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   color: #5a4a42;
 }
 
@@ -27,7 +28,6 @@ body {
   margin-top: 75px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
-  padding: 20px;
 }
 
 .items-center {
@@ -35,6 +35,7 @@ body {
 }
 
 .book-card {
+  cursor: pointer;
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
@@ -47,11 +48,6 @@ body {
   transform: translateY(-5px);
 }
 
-.book-card h2,
-.book-card p {
-  font-family: 'Playfair Display', serif;
-}
-
 .book-card img {
   width: 100%;
   max-height: 300px;
@@ -62,20 +58,23 @@ body {
 }
 
 .header {
+  user-select: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  background-color: #ef9978;
+  background-color: #4c585b;
   color: white;
   position: fixed;
   width: 100%;
   z-index: 2;
+  height: 80px;
   top: 0;
 }
 
 .logo {
   font-size: 1.5em;
+  margin-inline-start: 10px;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -90,20 +89,20 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  margin-right: 20px;
+  margin-inline-end: 20px;
+  height: 40px;
 }
 
 .li {
-  margin-left: 8px;
-  padding: 20px;
-
+  padding-inline: 20px;
+  transition: all 0.3s;
+  white-space: nowrap;
+  padding-block: 10px;
+  max-height: 20px;
   &:hover {
     background-color: rgba(239, 191, 173, 0.769);
-    border-bottom: 2px solid white;
   }
 }
-
-
 
 .li a,
 .a-li {
@@ -113,14 +112,12 @@ body {
   cursor: pointer;
 }
 
-
 .a-logo {
   color: white;
   font-weight: bold;
   text-decoration: none;
   font-size: 1.2em;
 }
-
 
 .imgLogo {
   max-width: 50px;
@@ -132,7 +129,7 @@ body {
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .header {
     flex-direction: row;
     padding: 0;
@@ -161,7 +158,9 @@ body {
   }
 
   .nav {
-    display: none;
+    max-height: 0px;
+    overflow: hidden;
+    transition: all 0.3s;
     width: 100%;
     background-color: #ef9978;
     position: absolute;
@@ -171,24 +170,27 @@ body {
   }
 
   .nav.open {
-    display: block;
+    max-height: 300px;
   }
 
   .ul {
+    cursor: pointer;
+    flex-grow: 1;
     flex-direction: column;
+    height: fit-content;
     align-items: center;
     margin: 0;
   }
 
   .li {
+    max-height: 50px;
     padding: 15px;
     width: 100%;
     text-align: center;
   }
 
   .li:hover {
-    border-top: 2px solid white;
-    border-bottom: 2px solid white;
+    /* border-block: 2px solid white; */
   }
 
   .li a {
